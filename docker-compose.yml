@@ -1,0 +1,46 @@
+version: '3'
+volumes:
+  apaches:
+
+services:
+
+  haproxy:
+    build: ./haproxy
+    ports:
+      - "80:80"
+    depends_on:
+      - apache01
+      - apache02
+
+  apache01:
+    hostname: apache1
+    build: ./apache1
+    volumes:
+      - apaches
+    expose:
+      - 80
+    depends_on:
+      - mysql
+
+  apache02:
+    hostname: apache2
+    build: ./apache2
+    volumes:
+      - apaches
+    expose:
+      - 80
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: bolson
+      MYSQL_DATABASE: lamp
+      MYSQL_USER: frodo
+      MYSQL_PASSWORD: bolson
+    ports:
+      - "3306:3306"
+
