@@ -14,7 +14,7 @@ services:
 
   apache01:
     hostname: apache1
-    build: ./apache1
+    build: .
     volumes:
       - apaches
     expose:
@@ -26,7 +26,7 @@ services:
 
   apache02:
     hostname: apache2
-    build: ./apache2
+    build: .
     volumes:
       - apaches
     expose:
